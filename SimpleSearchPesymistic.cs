@@ -46,7 +46,8 @@ namespace projekt01AlgorytmyIStrukturyDanych
             int result; //zmienna ktora przechowuje index liczby znalezionej
             //Generate tables with random value
             Console.WriteLine("size;lookupvalue;result;time;oper_count");
-            for (int i = 2000000; i < Math.Pow(2,28); i += 100000)
+            //for (int i = 2000000; i < Math.Pow(2,28); i += 100000)
+            for (int i = 26843545; i < 268435450; i += 26843545)
             {
                 int[] tab = new int[i];
                 for (int k = 0; k < tab.Length; k++)

@@ -69,7 +69,7 @@ namespace algorytmy01
             Console.WriteLine("size;lookupvalue;result;time;oper_count");
             int result;
 
-            for (int i = 2000000; i < Math.Pow(2, 28); i += 100000)
+            for (int i = 26843545; i < 268435450; i += 26843545)
             {
                 
                 int[] tab = new int[i];
@@ -80,7 +80,7 @@ namespace algorytmy01
                 Array.Sort(tab); // sortowanie tablicy rozsnąco
                 int lookUpValue = tab.Length+2; // wartość szukana
                 long start = Stopwatch.GetTimestamp(); // start czasu
-                result = BinarySearchPesymistic(tab, lookUpValue); // pomiar czasu dla liniowego tutaj robimy bez instrumentacji
+                result = BinarySearchPesymistic(tab, lookUpValue); // pomiar czasu dla binarnego tutaj robimy bez instrumentacji
                 long stop = Stopwatch.GetTimestamp();   // stop czas
                 result = BinarySearchPesymisticOptions(tab, lookUpValue); // wynik instrumentacji
                 Console.WriteLine(i + ";" + lookUpValue + ";" + result + ";" + (stop - start) + ";" + counter); // tablica; szukana; index; czas; za którym razem
