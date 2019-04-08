@@ -9,14 +9,15 @@ namespace projekt01AlgorytmyIStrukturyDanych
 {
     class Program
     {
+        private static int iter = 10;
         private static int counter; // zmienna globalna wykorzystywana do iteracji instrumentacji
 
         private static int SimpleSearch(int[] tab, int lookUpValue) //Wyszukiwanie Liniowe przed instrumentacją
         {
-            
+
             for (int i = 0; i < tab.Length; i++)
             {
-                
+
                 if (tab[i] == lookUpValue)
                 {
                     return i;
@@ -43,23 +44,39 @@ namespace projekt01AlgorytmyIStrukturyDanych
         {
             Random random = new Random();
             int lookUpValue = 1001; // wartość szukana
-            int result; //zmienna ktora przechowuje index liczby znalezionej
+            long min = long.MaxValue;
+            long max = long.MinValue;
+            long timeElapsed = 0;
+            long iterTimeElapsed;
+            
+            double ElapsedSeconds;
+            int result = 0;
             //Generate tables with random value
             Console.WriteLine("size;lookupvalue;result;time;oper_count");
             //for (int i = 2000000; i < Math.Pow(2,28); i += 100000)
-            for (int i = 26843545; i < 268435450; i += 26843545)
+            for (int i = 26843545; i <= 268435450; i += 26843545)
             {
                 int[] tab = new int[i];
                 for (int k = 0; k < tab.Length; k++)
                 {
-                    tab[k] = random.Next(1,1000);
+                    tab[k] = random.Next(1, 1000);
                 }
                 Array.Sort(tab);
-            long start = Stopwatch.GetTimestamp(); // start czasu
-            result = SimpleSearch(tab, lookUpValue); // pomiar czasu dla liniowego tutaj robimy bez instrumentacji
-            long stop = Stopwatch.GetTimestamp();   // stop czas
-            result = SimpleSearchOptions(tab, lookUpValue); // wynik instrumentacji
-            Console.WriteLine(i + ";" + lookUpValue + ";" + result + ";" + (stop - start) + ";" + counter); // tablica; szukana; index; czas; za którym razem
+                for (int j = 0; j < iter + 2; ++j)
+                {
+                    long start = Stopwatch.GetTimestamp(); // start czasu
+                    result = SimpleSearch(tab, lookUpValue); // pomiar czasu dla liniowego tutaj robimy bez instrumentacji
+                    long stop = Stopwatch.GetTimestamp();   // stop czas
+                    iterTimeElapsed = stop - start;
+                    timeElapsed += iterTimeElapsed;
+                    if (iterTimeElapsed < min) min = iterTimeElapsed;
+                    if (iterTimeElapsed > max) max = iterTimeElapsed;
+                    
+                    result = SimpleSearchOptions(tab, lookUpValue); // wynik instrumentacji
+                    timeElapsed = (min + max);
+                }
+                ElapsedSeconds = timeElapsed * (1.0 / (iter * Stopwatch.Frequency));
+                Console.WriteLine(i + ";" + lookUpValue + ";" + result + ";" + (ElapsedSeconds.ToString("F4")) + ";" + counter); // tablica; szukana; index; czas; za którym razem
             }
         }
     }
