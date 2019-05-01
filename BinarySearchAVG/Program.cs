@@ -94,7 +94,7 @@ namespace algorytmy01
             int lookUpValue;
             double ElapsedSeconds;
             //for (int i = 2000000; i < Math.Pow(2, 28); i += 100000)
-            for (int i = 26843545; i <= 268435450; i += 26843545)
+            for (int i = 5368709; i <= 53687090; i += 5368709)
             {
 
                 int[] tab = new int[i];
